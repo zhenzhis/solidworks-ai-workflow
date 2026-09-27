@@ -1,0 +1,54 @@
+# CAD tools for this trusted project only; reuse the installed Python and skill.
+[mcp_servers.solidworks]
+command = '<PYTHON>'
+args = ['<UPSTREAM_ROOT>\mcp-server\server.py']
+cwd = '<UPSTREAM_ROOT>'
+startup_timeout_sec = 30
+tool_timeout_sec = 300
+enabled_tools = [
+  "cadstudio_resolve_backend",
+  "solidworks_health_check",
+  "solidworks_connect",
+  "solidworks_new_document",
+  "solidworks_open_document",
+  "solidworks_save_document",
+  "solidworks_close_documents",
+  "solidworks_create_basic_part",
+  "solidworks_create_hole_feature",
+  "solidworks_inspect_hole_features",
+  "solidworks_add_component",
+  "solidworks_set_component_fixed",
+  "solidworks_add_coincident_mate",
+  "solidworks_add_distance_mate",
+  "solidworks_add_concentric_mate",
+  "solidworks_set_appearance",
+  "solidworks_inspect_configurations",
+  "solidworks_create_configuration",
+  "solidworks_activate_configuration",
+  "solidworks_update_dimension",
+  "solidworks_set_custom_properties",
+  "solidworks_export_active",
+  "solidworks_batch_export_files",
+  "solidworks_review_active",
+  "solidworks_generate_drawing",
+  "solidworks_review_drawing",
+  "solidworks_inspect_drawing",
+  "solidworks_export_assembly_bom",
+  "solidworks_pack_and_go",
+]
+
+[mcp_servers.solidworks.env]
+PYTHONUTF8 = "1"
+PYTHONDONTWRITEBYTECODE = "1"
+
+[mcp_servers.swapi-pilot]
+url = "https://swapi-pilot.com/mcp"
+startup_timeout_sec = 30
+tool_timeout_sec = 60
+enabled_tools = [
+  "search_solidworks_api",
+  "get_api_detail",
+  "list_interface_members",
+  "get_example_code",
+  "get_enum",
+]
