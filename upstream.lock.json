@@ -2,5 +2,37 @@
   "repository": "https://github.com/wzyn20051216/solidworks-automation-skill",
   "commit": "174d6c4770b3229c2fb3eb6babf7a16d56997c58",
   "license": "MIT",
-  "usage": "baseline reference"
+  "files": [
+    {
+      "source": "scripts/cad_installation.py",
+      "vendored": "src/sw_workflow/_vendor/cad_installation.py",
+      "sha256": "a7af852f09e55568a2a26dd65bc8cf2d60d22b0927f8fc92601312d8a39fca25"
+    },
+    {
+      "source": "scripts/sw_preflight.py",
+      "vendored": "src/sw_workflow/_vendor/sw_preflight.py",
+      "sha256": "85fbd2fefb0ef5a28c36668a3bda07388bdf26b4a4fa4e860e1ce7a71cd79060"
+    },
+    {
+      "source": "scripts/sw_connect.py",
+      "vendored": "src/sw_workflow/_vendor/sw_connect.py",
+      "sha256": "e2abf801566c21040d18efa0c54a3c39a91e4cb3f3ee3fa67dd1a5781252b1e2"
+    },
+    {
+      "source": "scripts/sw_part.py",
+      "vendored": "src/sw_workflow/_vendor/sw_part.py",
+      "sha256": "8057eb884f3e3837a83d8298752399b471ef019b4a1f795eaf48824881a3b79d"
+    },
+    {
+      "source": "scripts/sw_export.py",
+      "vendored": "src/sw_workflow/_vendor/sw_export.py",
+      "sha256": "2a71738605a5f7614826da72d7be0b4ddbdda8bffd061ff5900488de774b9218"
+    },
+    {
+      "source": "scripts/sw_document_data.py",
+      "vendored": "src/sw_workflow/_vendor/sw_document_data.py",
+      "sha256": "157bc77158251194d4930fa6919aa5f07fa4f1fd9898b3be155ebd6b9015ad1c"
+    }
+  ],
+  "snapshot_note": "Vendored Python source bytes match the pinned upstream Git blobs verbatim; LF line endings are preserved."
 }

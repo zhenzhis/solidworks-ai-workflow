@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "units": "mm",
+  "template": "bracket",
+  "parameters": {"width": 60, "height": 35, "depth": 40, "thickness": 5}
+}

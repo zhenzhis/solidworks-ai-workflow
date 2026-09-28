@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "units": "mm",
+  "template": "bushing",
+  "parameters": {"outer_diameter": 30, "inner_diameter": 16, "length": 25}
+}

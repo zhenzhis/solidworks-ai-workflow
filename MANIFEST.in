@@ -1,0 +1,14 @@
+include README.md CHANGELOG.md VERSION LICENSE NOTICE THIRD_PARTY_NOTICES.md upstream.lock.json uv.lock AGENTS.md
+recursive-include baseline *.md *.example
+recursive-include examples *.json
+recursive-include scripts *.py *.ps1
+recursive-include skills *.md
+recursive-include docs *.md *.json
+recursive-include tests *.py
+recursive-include src *.py LICENSE
+prune .local
+prune .venv
+prune .codex
+prune .agents
+prune artifacts
+global-exclude *.pyc

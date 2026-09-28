@@ -1,6 +1,7 @@
 /.local/
 /.venv/
 /.codex/
+/.agents/
 /artifacts/
 /dist/
 /build/

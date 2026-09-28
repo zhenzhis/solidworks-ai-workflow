@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "tested_utc": "2026-09-28T14:11:04.561286+00:00",
+  "status": "passed",
+  "jobs": [
+    {
+      "job": "release02-plate",
+      "manifest_sha256": "358880a5b48e98afc5b8a5cf2b6e2c68aa4c15471a4a2ec487fe971464ed0de4",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 14.448
+    },
+    {
+      "job": "release02-plate-edit",
+      "manifest_sha256": "d6cdb4d59367d4108b6d43c672d847c4c8c19ca7662ed7b3d129de9eaa95fb49",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 7.905
+    },
+    {
+      "job": "release02-bracket",
+      "manifest_sha256": "a8681bc426db0f98a02876c5fcbc29bb209aa399c5921a523d0dd57ba53909fc",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 11.649
+    },
+    {
+      "job": "release02-bracket-edit",
+      "manifest_sha256": "efe49fcbbc41467f0f098f285896de9ba34d5495055b228f7ca14fd5dfe3171c",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 6.752
+    },
+    {
+      "job": "release02-bushing",
+      "manifest_sha256": "c99fa860b664622d5358dc6bbac2e06c855a46c6745ceca66f4ed3f5c752cd2e",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 7.818
+    },
+    {
+      "job": "release02-bushing-edit",
+      "manifest_sha256": "79e4490eed3da0c22ba38d968b46dcacf33d5c5c236919b2b639a071651f8bcf",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 5.767
+    },
+    {
+      "job": "release02-drawing",
+      "manifest_sha256": "0417ea260cc79dd94d3e14001147e5bb34d03e5bf293405798f612ff1739f952",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 19.9
+    }
+  ],
+  "mcp_live": {
+    "job": "release02-mcp",
+    "manifest_sha256": "f2cd1f495397162d04678e9e09ebafb1963631649095d37dbd582e65fd462e47"
+  },
+  "unsaved_document_preserved": true,
+  "source_jobs_unchanged": true,
+  "stale_state_rejected": true,
+  "overwrite_rejected": true,
+  "engineering_release": "human_review_required",
+  "scope": "One Windows workstation; synthetic templates; not a cross-version or manufacturing qualification",
+  "source_version": "0.2.0",
+  "cad_environment": {
+    "product": "SOLIDWORKS",
+    "year": 2026,
+    "api_revision": "34.4.1",
+    "python": "3.13.9"
+  }
+}
