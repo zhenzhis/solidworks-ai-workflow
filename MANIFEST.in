@@ -1,4 +1,4 @@
-include README.md CHANGELOG.md VERSION LICENSE NOTICE THIRD_PARTY_NOTICES.md upstream.lock.json uv.lock AGENTS.md
+include README.md README.zh-CN.md CHANGELOG.md VERSION LICENSE NOTICE THIRD_PARTY_NOTICES.md upstream.lock.json uv.lock AGENTS.md
 recursive-include baseline *.md *.example
 recursive-include examples *.json
 recursive-include scripts *.py *.ps1
