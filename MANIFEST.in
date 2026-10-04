@@ -2,7 +2,7 @@ include README.md README.zh-CN.md CHANGELOG.md VERSION LICENSE NOTICE THIRD_PART
 recursive-include baseline *.md *.example
 recursive-include examples *.json
 recursive-include scripts *.py *.ps1
-recursive-include skills *.md
+recursive-include skills *.md LICENSE NOTICE
 recursive-include docs *.md *.json
 recursive-include tests *.py
 recursive-include src *.py LICENSE

@@ -7,7 +7,7 @@ import pytest
 
 from sw_workflow import service
 from sw_workflow.evidence import REQUIRED,check,file_records
-from sw_workflow.guard import GuardError,sha256,write_json
+from sw_workflow.guard import CadLock,GuardError,sha256,write_json
 from sw_workflow.spec import PartSpec
 
 
@@ -55,6 +55,7 @@ def test_failed_acceptance_retains_checkpoint_but_has_no_accepted_manifest(tmp_p
         checks['volume']=check(False)
         return checks,[]
     monkeypatch.setattr(service,'_preflight',lambda:None)
+    monkeypatch.setattr(service,'CadLock',lambda:CadLock(path=tmp_path/'isolated-test.lock'))
     monkeypatch.setitem(sys.modules,'sw_workflow.cad',SimpleNamespace(Session=Session,TemplateBuilder=Builder,finish_part=finish,update_globals=lambda *a:None))
     with pytest.raises(GuardError,match='acceptance failed'):
         service.build(tmp_path,'failed-job',{'template':'plate'})

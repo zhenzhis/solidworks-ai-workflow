@@ -72,7 +72,7 @@ def main():
             async with ClientSession(read,write) as client:
                 await client.initialize()
                 result=await client.call_tool('workflow_build',{'job':prefix+'-mcp','spec':{'template':'bushing'}})
-                require(not result.isError,'MCP live build failed')
+                require(not result.is_error,'MCP live build failed')
                 verified=service.verify(root,prefix+'-mcp')
                 require(verified['status']=='pass','MCP output integrity failed')
                 return {'job':prefix+'-mcp','manifest_sha256':verified['manifest_sha256']}

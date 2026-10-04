@@ -37,7 +37,7 @@ def main(argv=None):
             parameters = json.loads(args.parameters.read_text(encoding='utf-8-sig'))
             result = service.edit(args.root, args.source_job, args.job, parameters, args.expected_state)
         print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
-        return 2 if result.get('status')=='fail' else 0
+        return 2 if result.get('status') == 'fail' or (args.command == 'doctor' and not result['cad_ready']) else 0
     except Exception as exc:
         print(json.dumps({'status':'error','type':type(exc).__name__,'message':str(exc)},ensure_ascii=False),file=sys.stderr)
         return 1
