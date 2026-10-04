@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from contextlib import redirect_stdout
 from datetime import datetime, timezone
-from importlib import metadata, util
+from importlib import import_module, metadata
 from pathlib import Path
 import json
 import os
@@ -20,7 +20,13 @@ from .spec import PartSpec
 
 
 def doctor() -> dict:
-    missing = [name for name in ('pythoncom', 'win32com', 'comtypes') if util.find_spec(name) is None]
+    missing = []
+    for name in ('pythoncom', 'win32com.client', 'comtypes'):
+        try:
+            with redirect_stdout(sys.stderr):
+                import_module(name)
+        except (ImportError, OSError):
+            missing.append(name)
     installation = {"installed": False, "registered": False}
     if os.name == 'nt':
         from ._vendor.cad_installation import discover_installation

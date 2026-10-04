@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0 — Verified installation and portable Skill — 2026-10-04
+
+- Migrate to pinned official MCP Python SDK 2.2.0 with structured outputs, explicit version and real current/legacy protocol checks.
+- Bound the serial STA queue; retain running-job capacity after caller cancellation and shut down the executor with the server.
+- Fix false-success doctor exit codes and validate actual CAD dependency imports.
+- Verify installation through a real MCP subprocess; `-VerifyCad` adds a synthetic native build and STEP round trip. Report `configured`, `cad_smoke_passed` or `failed` explicitly.
+- Activate project config only after checks; copy the whole portable Skill and licenses, track managed hashes, preserve custom files and roll back configuration write failures.
+- Add standard Skill metadata and relative usage guidance, official format validation, fixed-version English/Chinese deployment prompts, and standards/provenance mapping.
+- Expand English-primary and Chinese-secondary documentation with readiness, host activation, Skill-only installation and isolated upgrade/rollback guidance.
+- Keep original releases, vendored MIT sources, native modeling semantics and historical validation records intact.
+
 ## 0.2.0 — Guarded executable workflow — 2026-09-28
 
 - Add one shared CLI and five-tool MCP interface with proper protocol error flags.

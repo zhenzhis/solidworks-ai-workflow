@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "tested_utc": "2026-10-04T13:12:06.270603+00:00",
+  "status": "passed",
+  "jobs": [
+    {
+      "job": "release03-plate",
+      "manifest_sha256": "3987696e2285522eeb5fb82acfa1450d1441bc9c2972bc81cf36d550b91181d5",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 17.017
+    },
+    {
+      "job": "release03-plate-edit",
+      "manifest_sha256": "e4ba5effe30ca05a7c1639be2d297b94794d56deeaa960bee0fbab4adbe9a3a3",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 10.115
+    },
+    {
+      "job": "release03-bracket",
+      "manifest_sha256": "1b51f15dd6a7f4c2570d89c7ebd7d778cc4151e5359b455d85ed7e21adce6a2e",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 15.387
+    },
+    {
+      "job": "release03-bracket-edit",
+      "manifest_sha256": "7b3d4ec5e12292079cc23e3add577c153b4267b286114a7348324a4bfba2a9be",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 9.581
+    },
+    {
+      "job": "release03-bushing",
+      "manifest_sha256": "a49a4105e011496ce6b155ff8b94c83b2afd4e85af77b75f1d0bfbf87c014328",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 8.415
+    },
+    {
+      "job": "release03-bushing-edit",
+      "manifest_sha256": "02275a56fbb14d54d28ea2f9e5e4f396d94d597f65ed761ef29b6d405790460a",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 7.189
+    },
+    {
+      "job": "release03-drawing",
+      "manifest_sha256": "e4b98d6213efa93acdaa5b6b25420cb298bb0518e109caa8b3350f7b13f5e585",
+      "validation": {
+        "automated_validation": "passed",
+        "missing_checks": [],
+        "failed_checks": [],
+        "engineering_release": "human_review_required"
+      },
+      "elapsed_seconds": 26.205
+    }
+  ],
+  "mcp_live": {
+    "job": "release03-mcp",
+    "manifest_sha256": "bec393688d2391de168b1e761c45c8e1331612166998e5fb8d6cefeff7787431"
+  },
+  "unsaved_document_preserved": true,
+  "source_jobs_unchanged": true,
+  "stale_state_rejected": true,
+  "overwrite_rejected": true,
+  "engineering_release": "human_review_required",
+  "scope": "One Windows workstation; synthetic templates; not a cross-version or manufacturing qualification"
+}

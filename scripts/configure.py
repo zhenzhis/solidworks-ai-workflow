@@ -1,11 +1,43 @@
 """Generate a project-local Codex config; never edit the user's global config."""
 import argparse
+import hashlib
 import json
+import os
 from pathlib import Path
 import sys
+import uuid
+
+from sw_workflow import __version__
 
 
-def configure(root, python, with_docs=False):
+LEGACY_SKILL_HASHES = {
+    '16c888e752117bb983a653ab3f024715b6991c42e6fc8af6a6019609dcc23e54',
+    '2927980dd30431a05ba9d89deda5b5ff7c53dbe64962bdab1561566acc22c8c8',
+}
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def safe_path(root, relative):
+    path = root / relative
+    if not path.resolve().is_relative_to(root) or path.resolve() == root:
+        raise RuntimeError('Configuration path escapes project: ' + relative)
+    return path
+
+
+def replace(path, data):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + '.' + uuid.uuid4().hex + '.tmp')
+    try:
+        temporary.write_bytes(data)
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def prepare(root, python, with_docs=False):
     root=Path(root).resolve()
     quote=lambda p: json.dumps(str(p).replace('\\','/'))
     content='\n'.join([
@@ -21,19 +53,68 @@ def configure(root, python, with_docs=False):
         'SW_WORKFLOW_OUTPUT = '+quote(root/'artifacts'),
         '',
     ])
+    for key in ('SW_WORKFLOW_PART_TEMPLATE', 'SW_WORKFLOW_DRAWING_TEMPLATE'):
+        if os.environ.get(key):
+            content += key + ' = ' + quote(Path(os.environ[key]).resolve()) + '\n'
     if with_docs:
         content+='\n[mcp_servers.swapi_pilot]\nurl = "https://swapi-pilot.com/mcp"\n'
-    target=root/'.codex'/'config.toml'
-    skill=root/'.agents'/'skills'/'solidworks-workflow'/'SKILL.md'
-    source=root/'skills'/'solidworks-workflow'/'SKILL.md'
-    for path,expected in ((target,content),(skill,source.read_text(encoding='utf-8'))):
-        if path.exists() and path.read_text(encoding='utf-8')!=expected:
+    files = {'.codex/config.toml': content.encode('utf-8')}
+    source = safe_path(root, 'skills/solidworks-workflow')
+    if not (source/'SKILL.md').is_file():
+        raise RuntimeError('Missing complete source Skill')
+    for path in sorted(source.rglob('*')):
+        if path.is_symlink():
+            raise RuntimeError('Skill source must not contain symbolic links')
+        if path.is_file():
+            files['.agents/skills/solidworks-workflow/'+path.relative_to(source).as_posix()] = path.read_bytes()
+    receipt = safe_path(root, '.local/install-state.json')
+    prior = json.loads(receipt.read_text(encoding='utf-8')) if receipt.exists() else {}
+    managed = prior.get('files', {})
+    previous = {}
+    for relative, expected in files.items():
+        path = safe_path(root, relative)
+        before = path.read_bytes() if path.exists() else None
+        previous[relative] = before
+        legacy = relative == '.agents/skills/solidworks-workflow/SKILL.md' and before is not None and digest(before) in LEGACY_SKILL_HASHES
+        equivalent = relative == '.codex/config.toml' and before is not None and before.replace(b'\r\n', b'\n') == expected
+        if before is not None and before != expected and digest(before) != managed.get(relative) and not legacy and not equivalent:
             raise RuntimeError(f'Existing local file differs; preserve and merge it manually: {path}')
-    target.parent.mkdir(parents=True,exist_ok=True)
-    skill.parent.mkdir(parents=True,exist_ok=True)
-    target.write_text(content,encoding='utf-8')
-    skill.write_text(source.read_text(encoding='utf-8'),encoding='utf-8')
-    return target
+    installed = root/'.agents/skills/solidworks-workflow'
+    if installed.exists():
+        for path in installed.rglob('*'):
+            if path.is_file() and path.relative_to(root).as_posix() not in files:
+                raise RuntimeError(f'Unmanaged Skill resource; preserve and review manually: {path}')
+    state = {'schema_version': 1, 'workflow_version': __version__,
+             'files': {name: digest(data) for name, data in files.items()}}
+    files['.local/install-state.json'] = (json.dumps(state, indent=2)+'\n').encode('utf-8')
+    previous['.local/install-state.json'] = receipt.read_bytes() if receipt.exists() else None
+    return root, files, previous
+
+
+def configure(root, python, with_docs=False):
+    root, files, previous = prepare(root, python, with_docs)
+    written = []
+    try:
+        for relative, data in files.items():
+            path = safe_path(root, relative)
+            current = path.read_bytes() if path.exists() else None
+            if current != previous[relative]:
+                raise RuntimeError('Local configuration changed during install: ' + relative)
+            if current != data:
+                replace(path, data)
+                written.append(relative)
+    except BaseException:
+        for relative in reversed(written):
+            path = safe_path(root, relative)
+            # Never undo a concurrent user's edit.
+            if not path.exists() or path.read_bytes() != files[relative]:
+                continue
+            if previous[relative] is None:
+                path.unlink()
+            else:
+                replace(path, previous[relative])
+        raise
+    return root/'.codex/config.toml'
 
 
 if __name__=='__main__':

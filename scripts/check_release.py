@@ -18,6 +18,10 @@ def main():
     project=tomllib.loads((root/'pyproject.toml').read_text(encoding='utf8'))['project']
     from sw_workflow import __version__
     require(project['version']==__version__==(root/'VERSION').read_text().strip(),'Version mismatch')
+    from skills_ref import read_properties, validate
+    skill=root/'skills'/'solidworks-workflow'
+    require(not validate(skill),'Invalid portable Skill')
+    require(read_properties(skill).metadata['version']==__version__,'Skill version mismatch')
     lock=json.loads((root/'upstream.lock.json').read_text())
     for item in lock['files']:
         require(hashlib.sha256((root/item['vendored']).read_bytes()).hexdigest()==item['sha256'],'Vendor source hash changed: '+item['vendored'])
@@ -32,6 +36,10 @@ def main():
         else:
             with tarfile.open(archive) as handle:
                 records={m.name:handle.extractfile(m).read() for m in handle.getmembers() if m.isfile()}
+            for needed in ('skills/solidworks-workflow/LICENSE','skills/solidworks-workflow/NOTICE',
+                           'skills/solidworks-workflow/references/usage.md','docs/DEPLOY_PROMPT.md','docs/DEPLOY_PROMPT.zh-CN.md'):
+                require(any(n.endswith('/'+needed) for n in records),'Missing source distribution resource: '+needed)
+        require(__version__ in archive.name,'Unexpected distribution version')
         require(any(n.endswith('/LICENSE') for n in records),'Missing license text')
         require(any(n.endswith('_vendor/LICENSE') for n in records),'Missing MIT license text')
         for name,data in records.items():
